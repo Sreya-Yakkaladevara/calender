@@ -1,23 +1,12 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Install Dependencies') {
-            steps {
-                // Tell Jenkins to step inside the subdirectory
-                dir('my-calendar') {
-                    echo 'Installing npm packages inside my-calendar...'
-                    sh 'npm install'
-                }
-            }
-        }
-
         stage('Build Application') {
             steps {
                 // Do the same for the build step
                 dir('my-calendar') {
                     echo 'Building production bundle...'
-                    sh 'npm run build'
+                    sh 'npm run dev'
                 }
             }
         }
