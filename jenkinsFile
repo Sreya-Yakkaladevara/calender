@@ -1,17 +1,23 @@
 pipeline {
     agent any
 
-    tools {
-        // Make sure 'nodejs' is configured in your Jenkins Global Tool Configuration
-        nodejs 'node' 
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing npm packages...'
+                // Running npm directly via shell environment
+                sh 'npm install'
+            }
+        }
+
+        stage('Build Application') {
+            steps {
+                echo 'Building production bundle...'
+                sh 'npm run build'
+            }
+        }
     }
-    stage('Build Application') {
-        steps {
-            echo 'Building production bundle...'
-            // Creates the optimized static assets in the 'build/' or 'dist/' directory
-            sh 'npm run dev'
-       }
-    }
+
     post {
         success {
             echo 'Pipeline completed successfully!'
