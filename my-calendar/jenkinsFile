@@ -19,7 +19,7 @@ pipeline {
                 echo 'Building production bundle...'
                 // CHANGED: Use 'npm run build' for a production bundle. 
                 // 'npm run dev' spins up a persistent local server and will hang Jenkins forever.
-                sh 'npm run build'
+                sh 'npm run dev'
             }
         }
     }
