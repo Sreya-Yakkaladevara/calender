@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    tools {
+        // Make sure 'nodejs' is configured in your Jenkins Global Tool Configuration
+        nodejs 'node' 
+    }
+    stage('Build Application') {
+        steps {
+            echo 'Building production bundle...'
+            // Creates the optimized static assets in the 'build/' or 'dist/' directory
+            sh 'npm run dev'
+       }
+    }
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check the build logs for details.'
+        }
+    }
+}
