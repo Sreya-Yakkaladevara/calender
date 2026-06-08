@@ -3,12 +3,10 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                // Do the same for the build step
-                dir('my-calendar') {
-                    echo 'Building production bundle...'
-                    sh 'npm run dev'
-                }
-            }
+              dir('my-calendar') {
+                   echo 'Building production bundle...'
+                   sh 'npm run dev'
+             }
         }
     }
 
