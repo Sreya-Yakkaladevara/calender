@@ -13,7 +13,7 @@ pipeline {
                     echo 'Installing dependencies and building production bundle...'
                     sh 'npm install --cache ./npm-cache'
                     sh 'npm install'
-                    sh 'npm run dev'
+                    sh 'npm run build'
                 }
             }
         }
