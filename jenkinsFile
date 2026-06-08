@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build Application') {
+            steps {
+                dir('my-calendar') {
+                    echo 'Installing dependencies and building production bundle...'
+                    // Standard Vite production build commands
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check the build logs for details.'
+        }
+    }
+}
