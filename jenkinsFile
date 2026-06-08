@@ -11,7 +11,7 @@ pipeline {
             steps {
                 dir('my-calendar') {
                     echo 'Installing dependencies and building production bundle...'
-                    sh 'npm config set cache ./npm-cache --global'
+                    sh 'npm install --cache ./npm-cache'
                     sh 'npm install'
                     sh 'npm run dev'
                 }
