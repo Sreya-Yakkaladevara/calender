@@ -11,9 +11,9 @@ pipeline {
             steps {
                 dir('my-calendar') {
                     echo 'Installing dependencies and building production bundle...'
-                    // Standard Vite production build commands
+                    sh 'npm config set cache ./npm-cache --global'
                     sh 'npm install'
-                    sh 'npm run build'
+                    sh 'npm run dev'
                 }
             }
         }
