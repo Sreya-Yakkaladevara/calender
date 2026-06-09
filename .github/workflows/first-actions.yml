@@ -3,6 +3,9 @@ on: [push]
 jobs:
   build:
    runs-on: ubuntu-latest
+   defaults:
+      run:
+        working-directory: my-calendar
    strategy:
      matrix:
        node-version: ["22.22.0"]
