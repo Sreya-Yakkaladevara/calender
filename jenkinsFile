@@ -16,8 +16,8 @@ pipeline {
                     
                     // FIX: Leverage Docker's native layer caching mechanism 
                     // This builds your Dockerfile and tags the image as 'my-calendar-app:latest'
-                    sh 'docker build --cache-from node:22-alpine -t my-calendar-app:latest .'
-                }
+                    sh 'docker build --cache-from node:22-alpine -f ../Dockerfile -t my-calendar-app:latest .'   
+               }
             }
         }
 
