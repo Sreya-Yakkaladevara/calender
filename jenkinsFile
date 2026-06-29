@@ -1,32 +1,38 @@
 pipeline {
-    agent {
-        docker{
-            image 'node:22-slim'
-        }
-
-    }
+    agent any // Runs on the EC2 host directly to manage Docker build commands
 
     stages {
-        stage('Build Application') {
+        stage('Checkout SCM') {
+            steps {
+                // Clones your repository code onto the EC2 instance
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
             steps {
                 dir('my-calendar') {
-                    echo 'Installing dependencies and building production bundle...'
-                    sh 'npm install --cache ./npm-cache'
-                    sh 'npm install'
-                    sh 'npm run build'
+                    echo 'Building the application using custom Dockerfile...'
+                    
+                    // FIX: Leverage Docker's native layer caching mechanism 
+                    // This builds your Dockerfile and tags the image as 'my-calendar-app:latest'
+                    sh 'docker build --cache-from node:22-alpine -t my-calendar-app:latest .'
                 }
             }
         }
-        stage('Test') {
+
+        stage('Test Container') {
             steps {
-                sh 'node --version'  
+                echo 'Verifying container spin-up and Node version...'
+                // Spins up your newly built container temporarily to test its stability
+                sh 'docker run --rm my-calendar-app:latest node --version'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'Pipeline completed successfully! Docker image is ready.'
         }
         failure {
             echo 'Pipeline failed. Check the build logs for details.'
