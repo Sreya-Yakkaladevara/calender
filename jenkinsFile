@@ -23,6 +23,7 @@ pipeline {
                     echo 'Building the application using custom Dockerfile...'
                     sh 'docker build --cache-from node:22-alpine -f Dockerfile -t my-calendar-app:latest .'   
                }
+           }
         }
 
         stage('Test Container') {
