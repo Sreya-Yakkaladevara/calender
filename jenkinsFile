@@ -10,15 +10,19 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            steps {
+           steps {
+                // 1. Check the main root directory first
+                echo '=== FILES IN ROOT DIRECTORY ==='
+                sh 'ls -la'
+                
                 dir('my-calendar') {
-                    echo 'Building the application using custom Dockerfile...'
+                    // 2. Check inside the my-calendar folder
+                    echo '=== FILES IN MY-CALENDAR DIRECTORY ==='
+                    sh 'ls -la'
                     
-                    // FIX: Leverage Docker's native layer caching mechanism 
-                    // This builds your Dockerfile and tags the image as 'my-calendar-app:latest'
+                    echo 'Building the application using custom Dockerfile...'
                     sh 'docker build --cache-from node:22-alpine -f Dockerfile -t my-calendar-app:latest .'   
                }
-            }
         }
 
         stage('Test Container') {
